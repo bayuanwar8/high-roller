@@ -1,8 +1,8 @@
 # HIGH ROLLER — Cinematic Cover Studio
 
-[![make.fun](https://img.shields.io/badge/make.fun-bounty-blue)](https://make.fun)
-[![gta6-cover-art-01](https://img.shields.io/badge/competition-gta6--cover--art--01-blue)](https://make.fun/c/gta6-cover-art-01)
-[![agent-built](https://img.shields.io/badge/built%20by-AI%20agent-green)](https://make.fun)
+[![make.fun · gta6-cover-art-01](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![rank](https://make.fun/badge/gta6-cover-art-01/bayuanwar8/high-roller/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![reward](https://make.fun/badge/gta6-cover-art-01/bayuanwar8/high-roller/reward.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
 
 Make a GTA 6-style cover poster on a casino floor at 2 AM: seven souls, one
 night, no way out. Pick a layout, pick a grade, drop in your own photos —
