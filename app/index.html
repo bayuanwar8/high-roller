@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HIGH ROLLER — Cinematic Cover Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">HR</span> HIGH ROLLER <span class="brand-sub">Cinematic Cover Studio</span></div>
+  <div class="top-actions">
+    <button id="undoBtn" type="button" disabled>Undo</button>
+    <button id="redoBtn" type="button" disabled>Redo</button>
+    <button id="samplesBtn" type="button">Load samples</button>
+    <label class="file-label" for="fileInput">Add photo</label>
+    <input id="fileInput" type="file" accept="image/*" multiple hidden>
+  </div>
+</header>
+<main class="studio">
+  <aside class="col col-left">
+    <section class="panel">
+      <h2>Photos</h2>
+      <div id="photoList" class="photo-list"></div>
+      <p class="hint">Drop a photo on the preview to add it. Drag a photo's slot number to move it.</p>
+    </section>
+    <section class="panel">
+      <h2>Layout</h2>
+      <div id="layoutPresets" class="preset-row"></div>
+    </section>
+    <section class="panel">
+      <h2>Grade</h2>
+      <div id="gradePresets" class="preset-row"></div>
+    </section>
+    <section class="panel">
+      <h2>Size</h2>
+      <div id="sizeSwitch" class="preset-row"></div>
+    </section>
+  </aside>
+  <section class="col col-center">
+    <div class="preview-wrap">
+      <canvas id="previewCanvas" width="720" height="720"></canvas>
+      <canvas id="overlayCanvas" width="720" height="720"></canvas>
+    </div>
+    <div id="panelToolbar" class="panel-toolbar"></div>
+    <div id="faceReport" class="face-report"></div>
+    <div id="miniPreviews" class="mini-previews"></div>
+  </section>
+  <aside class="col col-right">
+    <section class="panel">
+      <h2>Captions</h2>
+      <label>Title <input id="titleInput" type="text" value="HIGH ROLLER"></label>
+      <label>Script subtitle <input id="scriptInput" type="text" value="All in."></label>
+      <label>Tagline <input id="taglineInput" type="text" value="SEVEN SOULS · ONE NIGHT · NO WAY OUT"></label>
+      <label>Quote <input id="quoteInput" type="text" value="The cards never lie"></label>
+      <label>Quote source <input id="sourceInput" type="text" value="THE NEON LEDGER"></label>
+      <label>Billing <textarea id="billingInput" rows="3">a HIGH ROLLER PICTURES production with GOLDEN PALMS FILMS an C. VOSS film HIGH ROLLER music by VELVET STATIC</textarea></label>
+      <label>Release line <input id="releaseInput" type="text" value="COMING SOON"></label>
+    </section>
+    <section class="panel">
+      <h2>Cast tags</h2>
+      <div id="tagInputs" class="tag-inputs">
+        <label>Slot 1 <input data-slot="0" type="text" value="THE DEALER"></label>
+        <label>Slot 2 <input data-slot="1" type="text" value="THE WHALE"></label>
+        <label>Slot 3 <input data-slot="2" type="text" value="THE PIT BOSS"></label>
+        <label>Slot 4 <input data-slot="3" type="text" value="THE CARD SHARK"></label>
+        <label>Slot 5 <input data-slot="4" type="text" value="THE WAITRESS"></label>
+        <label>Slot 6 <input data-slot="5" type="text" value="THE LOOKOUT"></label>
+        <label>Slot 7 <input data-slot="6" type="text" value="THE CASINO FLOOR"></label>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Export PNG</h2>
+      <div id="exportCard" class="export-row">
+        <button data-export="square" type="button">1:1 · 1080×1080</button>
+        <button data-export="portrait" type="button">4:5 · 1080×1350</button>
+        <button data-export="wide" type="button">16:9 · 1920×1080</button>
+      </div>
+    </section>
+  </aside>
+</main>
+<div id="toast" class="toast" role="status"></div>
+<script type="module" src="src/studio.js"></script>
+</body>
+</html>
