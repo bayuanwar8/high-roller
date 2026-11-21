@@ -42,28 +42,44 @@ export function drawChromeTitle(ctx, W, H, text, band) {
   // Extrude: dark offset copies below.
   ctx.fillStyle = '#12060a';
   for (let d = px * 0.055; d > 0; d -= 2) ctx.fillText(text, cx, ty + d);
-  // Gradient fill: gold — white — gold, with a magenta kiss at the base.
-  const grad = ctx.createLinearGradient(0, ty - px * 0.5, 0, ty + px * 0.55);
+  // Gradient fill + stripe cuts + gloss, rendered on an offscreen canvas
+  // so the stripes and gloss land ONLY inside the glyphs. The previous
+  // version used 'source-atop' on the MAIN canvas, but the background is
+  // already painted opaque there, so source-atop leaked the stripe rects
+  // across the whole title band as full-width lines (and the gloss rect as
+  // a grey band behind the title). The offscreen canvas is transparent
+  // everywhere except the glyphs, so source-atop cannot leak.
+  const offH = Math.ceil(px * 1.3);
+  const off = document.createElement('canvas');
+  off.width = Math.ceil(w);
+  off.height = offH;
+  const o = off.getContext('2d');
+  o.textAlign = 'center';
+  o.textBaseline = 'middle';
+  o.font = `400 ${px}px Anton, sans-serif`;
+  const oy = offH / 2;
+  const grad = o.createLinearGradient(0, oy - px * 0.5, 0, oy + px * 0.55);
   grad.addColorStop(0, '#fbe98a');
   grad.addColorStop(0.35, '#fff7d6');
   grad.addColorStop(0.55, '#e8b64c');
   grad.addColorStop(0.8, '#f5d76e');
   grad.addColorStop(1, '#ff2e88');
-  ctx.fillStyle = grad;
-  ctx.fillText(text, cx, ty);
+  o.fillStyle = grad;
+  o.fillText(text, w / 2, oy);
   // Stripe cuts + gloss, clipped to the glyphs.
-  ctx.globalCompositeOperation = 'source-atop';
-  ctx.fillStyle = 'rgba(20,8,4,0.55)';
-  for (let sy = ty - px * 0.42; sy < ty + px * 0.5; sy += px * 0.17) {
-    ctx.fillRect(cx - w / 2, sy, w, Math.max(1.5, px * 0.02));
+  o.globalCompositeOperation = 'source-atop';
+  o.fillStyle = 'rgba(20,8,4,0.55)';
+  for (let sy = oy - px * 0.42; sy < oy + px * 0.5; sy += px * 0.17) {
+    o.fillRect(0, sy, w, Math.max(1.5, px * 0.02));
   }
-  const gloss = ctx.createLinearGradient(cx - w * 0.3, ty - px * 0.5, cx + w * 0.2, ty + px * 0.5);
+  const gloss = o.createLinearGradient(w * 0.2, oy - px * 0.5, w * 0.7, oy + px * 0.5);
   gloss.addColorStop(0, 'rgba(255,255,255,0)');
   gloss.addColorStop(0.5, 'rgba(255,255,255,0.34)');
   gloss.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = gloss;
-  ctx.fillRect(cx - w / 2, ty - px * 0.55, w, px * 1.1);
-  ctx.globalCompositeOperation = 'source-over';
+  o.fillStyle = gloss;
+  o.fillRect(0, oy - px * 0.55, w, px * 1.1);
+  o.globalCompositeOperation = 'source-over';
+  ctx.drawImage(off, cx - w / 2, ty - offH / 2);
   // Outline + light rim.
   ctx.lineWidth = Math.max(2, px * 0.045);
   ctx.strokeStyle = '#1a0b12';
