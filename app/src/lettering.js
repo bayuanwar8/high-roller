@@ -339,10 +339,14 @@ export function drawCastTag(ctx, panel, tag, sub, u) {
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
   ctx.fillText(tag, x + pad + 11 * u, ty + tagH / 2 + 1);
-  // Micro-story line under the tag.
+  // Micro-story line under the tag, on its own dark scrim so it stays
+  // readable over bright photo content (card fans, chip stacks).
   if (sub) {
     const sp = fitFont(ctx, sub, '"Barlow Condensed", sans-serif', '600', w * 0.92, tagH * 0.5);
     ctx.font = `600 ${sp}px "Barlow Condensed", sans-serif`;
+    const sw = ctx.measureText(sub).width;
+    ctx.fillStyle = 'rgba(4,6,12,0.78)';
+    ctx.fillRect(x + pad, ty + tagH, sw + 10 * u, tagH * 0.72);
     ctx.fillStyle = 'rgba(243,234,210,0.92)';
     ctx.fillText(sub, x + pad + 2 * u, ty + tagH + tagH * 0.36);
   }
